@@ -17,6 +17,7 @@ export default class QRCodeStyling {
     update(options?: Partial<Options>): void;
     append(container?: HTMLElement): void;
     getRawData(extension?: Extension, quality?: number): Promise<Blob | null>;
+    toSVGString(): Promise<string>;
     /**
      *
      * @param extension file format of the returned image
