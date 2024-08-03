@@ -132,6 +132,13 @@ export default class QRCodeStyling {
     }
   }
 
+  async toSVGString() {
+    const element = await this._getQRStylingElement("svg");
+    const serializer = new XMLSerializer();
+    const source = serializer.serializeToString(element.getElement());
+    return source;
+  }
+
   /**
    *
    * @param extension file format of the returned image
