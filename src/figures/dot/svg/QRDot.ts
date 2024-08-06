@@ -72,6 +72,7 @@ export default class QRDot {
         this._element.setAttribute("y", String(y));
         this._element.setAttribute("width", String(size));
         this._element.setAttribute("height", String(size));
+        this._element.setAttribute("shape-rendering", `crispEdges`);
       }
     });
   }
