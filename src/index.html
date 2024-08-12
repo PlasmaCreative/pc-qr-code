@@ -9,7 +9,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-wrap: wrap;
         width: 100%;
+        gap: 20px;
       }
     </style>
   </head>
@@ -18,19 +20,23 @@
     <div id="container"></div>
 
     <script type="text/javascript">
+      
+      const dotOptions = ["rounded", "dots", "classy", "classy-rounded", "square", "extra-rounded"];
+
+
       //Test out dot options
       const options = {
-        width: 300,
-        height: 300,
+        width: 255,
+        height: 255,
         data: "https://google.com",
         image: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
         dotsOptions: {
           type: "square",
-          // color: ""
+          color: ""
         },
         cornersSquareOptions: {
           type: "square",
-          // color: "#321ccc"
+          color: ""
         },
         imageOptions: {
           crossOrigin: "anonymous",
@@ -40,13 +46,22 @@
       };
 
       //Draw fixed version
+
+      dotOptions.forEach((dotOption, i) => {
+        options["dotsOptions"] = {
+          type: dotOptions[i]
+        };
+
+        const qrCode = new QRCodeStyling(options);
+        qrCode.append(container);
+      });
+
       const qrCode = new QRCodeStyling(options);
       async function test(){
         const svgString = await qrCode.toSVGString();
-        console.log("Yay string!", svgString)
+        console.log("SVG string:", svgString)
       }
       test();
-      qrCode.append(container);
     </script>
   </body>
 </html>

@@ -49,14 +49,21 @@ export default class QRDot {
 
   _basicDot(args: BasicFigureDrawArgs): void {
     const { size, x, y } = args;
+    const cx = x + size / 2;
+    const cy = y + size / 2;
+    const r = size / 2;
 
     this._rotateFigure({
       ...args,
       draw: () => {
-        this._element = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        this._element.setAttribute("cx", String(x + size / 2));
-        this._element.setAttribute("cy", String(y + size / 2));
-        this._element.setAttribute("r", String(size / 2));
+        this._element = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        this._element.setAttribute(
+          "d",
+          `M ${cx - r}, ${cy} a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 -${r * 2},0`
+        );
+        // this._element.setAttribute("cx", String(x + size / 2));
+        // this._element.setAttribute("cy", String(y + size / 2));
+        // this._element.setAttribute("r", String(size / 2));
       }
     });
   }
@@ -67,12 +74,12 @@ export default class QRDot {
     this._rotateFigure({
       ...args,
       draw: () => {
-        this._element = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        this._element.setAttribute("x", String(x));
-        this._element.setAttribute("y", String(y));
-        this._element.setAttribute("width", String(size));
-        this._element.setAttribute("height", String(size));
-        this._element.setAttribute("shape-rendering", `crispEdges`);
+        this._element = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        this._element.setAttribute("d", `M ${x} ${y} l 0 ${size} l ${size} 0 l 0 -${size} z`);
+        // this._element.setAttribute("x", String(x));
+        // this._element.setAttribute("y", String(y));
+        // this._element.setAttribute("width", String(size));
+        // this._element.setAttribute("height", String(size));
       }
     });
   }
