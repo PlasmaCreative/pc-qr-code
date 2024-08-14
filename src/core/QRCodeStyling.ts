@@ -10,6 +10,9 @@ import sanitizeOptions from "../tools/sanitizeOptions";
 import { Extension, QRCode, Options, DownloadOptions } from "../types";
 import qrcode from "qrcode-generator";
 
+import { optimize } from "svgo/browser";
+import { SVG } from "@svgdotjs/svg.js";
+
 export default class QRCodeStyling {
   _options: RequiredOptions;
   _container?: HTMLElement;
@@ -137,6 +140,31 @@ export default class QRCodeStyling {
     const serializer = new XMLSerializer();
     const source = serializer.serializeToString(element.getElement());
     return source;
+  }
+
+  async toOptimizedSVGString() {
+    const element = await this._getQRStylingElement("svg");
+    const serializer = new XMLSerializer();
+    const source = serializer.serializeToString(element.getElement());
+
+    const result = optimize(source, {
+      plugins: ["mergePaths", "convertPathData"]
+    });
+
+    const parseQr = SVG(result.data);
+
+    const groupsList = parseQr.find("g");
+
+    groupsList.each((group) => {
+      const pathD: string = group.children().reduce((pathString, path) => {
+        return pathString + path.attr("d");
+      }, "");
+      const pathElement = SVG().path(pathD);
+      group.clear();
+      group.add(pathElement);
+    });
+
+    return parseQr.svg();
   }
 
   /**

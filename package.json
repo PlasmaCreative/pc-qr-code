@@ -1,5 +1,5 @@
 {
-  "name": "styled-qr-code",
+  "name": "pc-qr-code",
   "version": "1.0.1",
   "description": "Add a style and an image to your QR code",
   "main": "lib/styled-qr-code.js",
@@ -8,7 +8,9 @@
     "lib"
   ],
   "dependencies": {
-    "qrcode-generator": "^1.4.4"
+    "@svgdotjs/svg.js": "^3.2.4",
+    "qrcode-generator": "^1.4.4",
+    "svgo": "^4.0.0-rc.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.35.1",
