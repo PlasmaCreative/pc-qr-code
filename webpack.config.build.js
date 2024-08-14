@@ -11,6 +11,9 @@ module.exports = (env, argv) => {
 
   if (argv.mode === "production") {
     config.devtool = "source-map";
+    config.performance = {
+        hints: false
+    }
   }
 
   return config;

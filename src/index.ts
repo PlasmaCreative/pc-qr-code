@@ -1,4 +1,4 @@
-import QRCodeStyling from "./core/QRCodeStyling";
+import PCQRCode from "./core/PCQRCode";
 import dotTypes from "./constants/dotTypes";
 import cornerDotTypes from "./constants/cornerDotTypes";
 import cornerSquareTypes from "./constants/cornerSquareTypes";
@@ -21,4 +21,4 @@ export {
   drawTypes
 };
 
-export default QRCodeStyling;
+export default PCQRCode;

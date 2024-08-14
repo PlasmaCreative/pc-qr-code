@@ -2,7 +2,7 @@
     "compilerOptions": {
         "outDir": "./lib/",
         "sourceMap": true,
-        "module": "es6",
+        "module": "esnext",
         "target": "ES2017",
         "allowJs": true,
         "moduleResolution": "node",

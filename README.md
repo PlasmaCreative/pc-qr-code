@@ -1,98 +1,20 @@
-# QR Code Styling
-
-[![Version](https://img.shields.io/npm/v/styled-qr-code.svg)](https://www.npmjs.org/package/styled-qr-code)
+# PC QR Code
 
 JavaScript library for generating QR codes with a logo and styling.
 
-This is a fork of the currently unmaintained [repository by kozakdenys](https://github.com/kozakdenys/qr-code-styling) fixing multiple issues:
-
-- [#49](https://github.com/kozakdenys/qr-code-styling/issues/105) [#105 QR code is not valid by some scanners](https://github.com/kozakdenys/qr-code-styling/issues/105)
-- outdated dependencies
-- release for es2017
-
-Try the old version here https://qr-code-styling.com to get a feel
+This is a fork of the currently unmaintained [repository by kozakdenys](https://github.com/kozakdenys/qr-code-styling). Try the old version here https://qr-code-styling.com to get a feel
 
 ### Examples
 
-<p float="left">
-<img style="display:inline-block" src="https://raw.githubusercontent.com/kozakdenys/qr-code-styling/master/src/assets/facebook_example_new.png" width="240" />
-<img style="display:inline-block" src="https://raw.githubusercontent.com/kozakdenys/qr-code-styling/master/src/assets/qr_code_example.png" width="240" />
-<img style="display:inline-block" src="https://raw.githubusercontent.com/kozakdenys/qr-code-styling/master/src/assets/telegram_example_new.png" width="240" />
-</p>
+[ProQR.tools](https://proqr.tools)
 
-### Installation
 
-```
-npm install styled-qr-code
-```
-
-or
-
-```
-yarn add styled-qr-code
-```
-
-### Usage
-
-```HTML
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>QR Code Styling</title>
-    <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
-</head>
-<body>
-<div id="canvas"></div>
-<script type="text/javascript">
-
-    const qrCode = new QRCodeStyling({
-        width: 300,
-        height: 300,
-        type: "svg",
-        data: "https://www.facebook.com/",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
-        dotsOptions: {
-            color: "#4267b2",
-            type: "rounded"
-        },
-        backgroundOptions: {
-            color: "#e9ebee",
-        },
-        imageOptions: {
-            crossOrigin: "anonymous",
-            margin: 20
-        }
-    });
-
-    qrCode.append(document.getElementById("canvas"));
-    qrCode.download({ name: "qr", extension: "svg" });
-</script>
-</body>
-</html>
-```
-
----
-
-[**React example (Codesandbox)**](https://codesandbox.io/s/qr-code-styling-react-example-l8rwl?file=/src/App.js)
-
-[**Angular example (Codesandbox)**](https://codesandbox.io/s/agitated-panini-tpgb2?file=/src/app/app.component.ts)
-
----
-
-[**React example (source)**](https://github.com/kozakdenys/qr-code-styling-examples/tree/master/examples/react)
-
-[**Angular example (source)**](https://github.com/kozakdenys/qr-code-styling-examples/tree/master/examples/angular)
-
-[**Vue example (source)**](https://github.com/kozakdenys/qr-code-styling-examples/tree/master/examples/vue)
-
----
 
 ### API Documentation
 
-#### QRCodeStyling instance
+#### PCQRCode instance
 
-`new QRCodeStyling(options) => QRCodeStyling`
+`new PCQRCode(options) => PCQRCode`
 
 | Param   | Type   | Description |
 | ------- | ------ | ----------- |
@@ -152,17 +74,17 @@ yarn add styled-qr-code
 
 | Property | Type                                      | Default Value | Description                |
 | -------- | ----------------------------------------- | ------------- | -------------------------- |
-| color    | string                                    |               | Color of Corners Square    |
+| color    | string                                    | `#000`        | Color of Corners Square    |
 | gradient | object                                    |               | Gradient of Corners Square |
-| type     | string (`'dot' 'square' 'extra-rounded'`) |               | Style of Corners Square    |
+| type     | string (`'rounded' 'circle' 'classy' 'classy-rounded' 'square' 'extra-rounded'`) | `'square'`    | Style of Corners Square    |
 
 `options.cornersDotOptions` structure
 
 | Property | Type                      | Default Value | Description             |
 | -------- | ------------------------- | ------------- | ----------------------- |
-| color    | string                    |               | Color of Corners Dot    |
+| color    | string                    | `#000`        | Color of Corners Dot    |
 | gradient | object                    |               | Gradient of Corners Dot |
-| type     | string (`'dot' 'square'`) |               | Style of Corners Dot    |
+| type     | string (`'rounded' 'circle' 'classy' 'classy-rounded' 'square' 'extra-rounded'`) | `'square'`    | Style of Corners Dot    |
 
 Gradient structure
 
@@ -195,27 +117,27 @@ Gradient colorStops structure
 | offset   | number (`0 - 1`) |               | Position of color in gradient range |
 | color    | string           |               | Color of stop in gradient range     |
 
-#### QRCodeStyling methods
+#### PCQRCode methods
 
-`QRCodeStyling.append(container) => void`
+`PCQRCode.append(container) => void`
 
 | Param     | Type        | Description                                              |
 | --------- | ----------- | -------------------------------------------------------- |
 | container | DOM element | This container will be used for appending of the QR code |
 
-`QRCodeStyling.getRawData(extension) => Promise<Blob>`
+`PCQRCode.getRawData(extension) => Promise<Blob>`
 
 | Param     | Type                                 | Default Value | Description |
 | --------- | ------------------------------------ | ------------- | ----------- |
 | extension | string (`'png' 'jpeg' 'webp' 'svg'`) | `'png'`       | Blob type   |
 
-`QRCodeStyling.update(options) => void`
+`PCQRCode.update(options) => void`
 
 | Param   | Type   | Description                            |
 | ------- | ------ | -------------------------------------- |
 | options | object | The same options as for initialization |
 
-`QRCodeStyling.download(downloadOptions, quality) => Promise<void>`
+`PCQRCode.download(downloadOptions, quality) => Promise<void>`
 
 | Param           | Type   | Description                                                                                                                                                                                                                                                                                                 |
 | --------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -229,13 +151,9 @@ Gradient colorStops structure
 | name      | string                               | `'qr'`        | Name of the downloaded file |
 | extension | string (`'png' 'jpeg' 'webp' 'svg'`) | `'png'`       | File extension              |
 
-`QRCodeStyling.toDataUrl(extension, quality) => Promise<void>`
+`PCQRCode.toDataUrl(extension, quality) => Promise<void>`
 
 | Param     | Type                           | Default Value | Description                                                                                                                                                                                                                                                                                                  |
 | --------- | ------------------------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | extension | string (`'png' 'jpeg' 'webp')` | 'png'         | Blob type                                                                                                                                                                                                                                                                                                    |
-| quality   | number                         | undefined     | [A Number between 0 and 1 indicating the image quality to be used when creating images using file formats that support lossy compression (such as image/jpeg or image/webp). A user agent will use its default quality value if this option is not specified, or if the number is outside the allowed range. |
-
-### License
-
-[MIT License](https://raw.githubusercontent.com/kozakdenys/qr-code-styling/master/LICENSE). Copyright (c) 2021 Denys Kozak
+| quality   | number                         | undefined     | A Number between 0 and 1 indicating the image quality to be used when creating images using file formats that support lossy compression (such as image/jpeg or image/webp). A user agent will use its default quality value if this option is not specified, or if the number is outside the allowed range. |

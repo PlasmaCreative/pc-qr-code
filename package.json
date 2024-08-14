@@ -1,8 +1,8 @@
 {
   "name": "pc-qr-code",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Add a style and an image to your QR code",
-  "main": "lib/styled-qr-code.js",
+  "main": "lib/pc-qr-code.js",
   "types": "lib/index.d.ts",
   "files": [
     "lib"
@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KilianB/styled-qr-code.git"
+    "url": "git+https://github.com/PlasmaCreative/pc-qr-code.git"
   },
   "keywords": [
     "qr",
