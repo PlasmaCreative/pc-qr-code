@@ -1,7 +1,20 @@
 import qrTypes from "../constants/qrTypes";
+import dotTypes from "../constants/dotTypes";
 import drawTypes from "../constants/drawTypes";
+import cornerSquareTypes from "../constants/cornerSquareTypes";
+import cornerDotTypes from "../constants/cornerDotTypes";
 import errorCorrectionLevels from "../constants/errorCorrectionLevels";
-import { DotType, Options, TypeNumber, ErrorCorrectionLevel, Mode, DrawType, Gradient } from "../types";
+import {
+  DotType,
+  Options,
+  TypeNumber,
+  ErrorCorrectionLevel,
+  Mode,
+  DrawType,
+  Gradient,
+  CornerSquareType,
+  CornerDotType
+} from "../types";
 
 export interface RequiredOptions extends Options {
   type: DrawType;
@@ -29,6 +42,16 @@ export interface RequiredOptions extends Options {
     color: string;
     gradient?: Gradient;
   };
+  cornersSquareOptions: {
+    type: CornerSquareType;
+    color: string;
+    gradient?: Gradient;
+  };
+  cornersDotOptions: {
+    type: CornerDotType;
+    color: string;
+    gradient?: Gradient;
+  };
   useLegacyDotRotation: boolean;
 }
 
@@ -50,11 +73,19 @@ const defaultOptions: RequiredOptions = {
     margin: 0
   },
   dotsOptions: {
-    type: "square",
+    type: dotTypes.square,
+    color: "#000"
+  },
+  cornersSquareOptions: {
+    type: cornerSquareTypes.square,
+    color: "#000"
+  },
+  cornersDotOptions: {
+    type: cornerDotTypes.square,
     color: "#000"
   },
   backgroundOptions: {
-    color: "#fff"
+    color: "transparent"
   },
   useLegacyDotRotation: false
 };
