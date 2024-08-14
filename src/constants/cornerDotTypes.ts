@@ -1,6 +1,10 @@
 import { CornerDotTypes } from "../types";
 
 export default {
-  dot: "dot",
-  square: "square"
+  square: "square",
+  rounded: "rounded",
+  extraRounded: "extra-rounded",
+  circle: "circle",
+  classy: "classy",
+  classyRounded: "classy-rounded"
 } as CornerDotTypes;

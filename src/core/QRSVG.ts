@@ -41,6 +41,9 @@ export default class QRSVG {
   _options: RequiredOptions;
   _qr?: QRCode;
   _image?: HTMLImageElement;
+  _instanceId: number;
+
+  static instanceCount = 0;
 
   //TODO don't pass all options to this class
   constructor(options: RequiredOptions) {
@@ -50,7 +53,7 @@ export default class QRSVG {
     this._element.setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
     this._defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
     this._style = document.createElementNS("http://www.w3.org/2000/svg", "style");
-
+    this._instanceId = QRSVG.instanceCount++;
     this._options = options;
   }
 
@@ -188,7 +191,7 @@ export default class QRSVG {
 
     if (options.dotsOptions?.gradient) {
       this._dotsClipPath = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
-      this._dotsClipPath.setAttribute("id", "clip-path-dot-color");
+      this._dotsClipPath.setAttribute("id", `clip-path-dot-color-${this._instanceId}`);
       this._defs.appendChild(this._dotsClipPath);
       this._createColor({
         options: options.dotsOptions?.gradient,
@@ -198,15 +201,15 @@ export default class QRSVG {
         y: yBeginning,
         height: count * dotSize,
         width: count * dotSize,
-        name: "dot-color"
+        name: `dot-color-${this._instanceId}`
       });
     } else if (options.dotsOptions.color) {
       this._dots = document.createElementNS("http://www.w3.org/2000/svg", "g");
-      this._dots.setAttribute("class", "dot-color");
+      this._dots.setAttribute("class", `dot-color-${this._instanceId}`);
       this._element.appendChild(this._dots);
       this._createStyle({
         color: options.dotsOptions.color,
-        name: "dot-color"
+        name: `dot-color-${this._instanceId}`
       });
     }
 
@@ -275,7 +278,7 @@ export default class QRSVG {
 
       if (options.cornersSquareOptions?.gradient) {
         cornersSquareClipPath = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
-        cornersSquareClipPath.setAttribute("id", `clip-path-corners-square-color-${column}-${row}`);
+        cornersSquareClipPath.setAttribute("id", `clip-path-corners-square-color-${column}-${row}-${this._instanceId}`);
         this._defs.appendChild(cornersSquareClipPath);
         this._cornersSquareClipPath = this._cornersDotClipPath = cornersDotClipPath = cornersSquareClipPath;
 
@@ -287,15 +290,15 @@ export default class QRSVG {
           y,
           height: cornersSquareSize,
           width: cornersSquareSize,
-          name: `corners-square-color-${column}-${row}`
+          name: `corners-square-color-${column}-${row}-${this._instanceId}`
         });
       } else {
         this._cornerSquares = document.createElementNS("http://www.w3.org/2000/svg", "g");
-        this._cornerSquares.setAttribute("class", `corners-square-color-${column}-${row}`);
+        this._cornerSquares.setAttribute("class", `corners-square-color-${column}-${row}-${this._instanceId}`);
         this._element.appendChild(this._cornerSquares);
         this._createStyle({
           color: options.cornersSquareOptions?.color,
-          name: `corners-square-color-${column}-${row}`
+          name: `corners-square-color-${column}-${row}-${this._instanceId}`
         });
       }
 
@@ -336,7 +339,7 @@ export default class QRSVG {
 
       if (options.cornersDotOptions?.gradient) {
         cornersDotClipPath = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
-        cornersDotClipPath.setAttribute("id", `clip-path-corners-dot-color-${column}-${row}`);
+        cornersDotClipPath.setAttribute("id", `clip-path-corners-dot-color-${column}-${row}-${this._instanceId}`);
         this._defs.appendChild(cornersDotClipPath);
         this._cornersDotClipPath = cornersDotClipPath;
 
@@ -348,15 +351,15 @@ export default class QRSVG {
           y: y + dotSize * 2,
           height: cornersDotSize,
           width: cornersDotSize,
-          name: `corners-dot-color-${column}-${row}`
+          name: `corners-dot-color-${column}-${row}-${this._instanceId}`
         });
       } else {
         this._cornerDots = document.createElementNS("http://www.w3.org/2000/svg", "g");
-        this._cornerDots.setAttribute("class", `corners-dot-color-${column}-${row}`);
+        this._cornerDots.setAttribute("class", `corners-dot-color-${column}-${row}-${this._instanceId}`);
         this._element.appendChild(this._cornerDots);
         this._createStyle({
           color: options.cornersDotOptions?.color,
-          name: `corners-dot-color-${column}-${row}`
+          name: `corners-dot-color-${column}-${row}-${this._instanceId}`
         });
       }
 

@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
     <title>QR Code Styling</title>
+    <meta charSet="utf-8"/>
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"/>
+    <meta name="HandheldFriendly" content="true"/>
 
     <style>
+      body {
+        text-align: center;
+      }
       #container {
         display: flex;
         justify-content: center;
@@ -17,27 +23,23 @@
   </head>
 
   <body>
+    <h1>SVG QR Codes</h1>
     <div id="container"></div>
 
     <script type="text/javascript">
       
-      const dotOptions = ["rounded", "dots", "classy", "classy-rounded", "square", "extra-rounded"];
+      const dotOptions = ["rounded", 
+      "dots", "classy", "classy-rounded", "square", "extra-rounded"
+    ];
+      const colors = ["#e8977d", "#d3e87d", "#7de88e", "#7ddbe8", "#867de8", "#e87de4"];
+      const cornerDot = ['rounded', 'circle', 'classy', 'classy-rounded', 'square', 'extra-rounded'];
+      const cornerSquare = ['rounded', 'circle', 'classy', 'classy-rounded', 'square', 'extra-rounded'];
 
-
-      //Test out dot options
       const options = {
-        width: 255,
-        height: 255,
-        data: "https://google.com",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
-        dotsOptions: {
-          type: "square",
-          color: ""
-        },
-        cornersSquareOptions: {
-          type: "square",
-          color: ""
-        },
+        width: 300,
+        height: 300,
+        data: "Hello World!!",
+        // image: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
         imageOptions: {
           crossOrigin: "anonymous",
           margin: 10
@@ -49,19 +51,34 @@
 
       dotOptions.forEach((dotOption, i) => {
         options["dotsOptions"] = {
-          type: dotOptions[i]
+          ...options["dotsOptions"],
+          type: dotOptions[i],
+          color: colors[i]
+        };
+        options["cornersSquareOptions"] = {
+          ...options["cornersSquareOptions"],
+          type: cornerSquare[i],
+          color: colors[i]
+        };
+        options["cornersDotOptions"] = {
+          ...options["cornersDotOptions"],
+          type: cornerDot[i],
+          color: colors[i]
         };
 
         const qrCode = new QRCodeStyling(options);
-        qrCode.append(container);
+        async function test(){
+          const svgString = await qrCode.toOptimizedSVGString();
+          const span = document.createElement("span")
+          span.innerHTML = svgString + `<div><br/>
+            Dots: ${dotOptions[i]}<br/>
+            Corner Square: ${cornerSquare[i]}<br/>
+            Corner Dot: ${cornerDot[i]}<br/>
+          </div>`;
+          document.getElementById("container").appendChild(span);
+        }
+        test();
       });
-
-      const qrCode = new QRCodeStyling(options);
-      async function test(){
-        const svgString = await qrCode.toSVGString();
-        console.log("SVG string:", svgString)
-      }
-      test();
     </script>
   </body>
 </html>
