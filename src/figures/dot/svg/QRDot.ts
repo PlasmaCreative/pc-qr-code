@@ -16,6 +16,9 @@ export default class QRDot {
     let drawFunction;
 
     switch (type) {
+      case dotTypes.gappedDots:
+        drawFunction = this._drawGappedDots;
+        break;
       case dotTypes.gappedSquare:
         drawFunction = this._drawGappedSquare;
         break;
@@ -84,15 +87,39 @@ export default class QRDot {
     const { size, x, y } = args;
     const dot = size / 6;
 
-    this._element = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    this._element.setAttribute(
-      "d",
-      `M ${x + dot} ${y + dot}` +
-        `L ${x + dot} ${y + (size - dot)}` +
-        `H ${x + (size - dot)}` +
-        `L ${x + (size - dot)} ${y + dot}` +
-        `Z`
-    );
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        this._element = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        this._element.setAttribute(
+          "d",
+          `M ${x + dot} ${y + dot}` +
+            `L ${x + dot} ${y + (size - dot)}` +
+            `H ${x + (size - dot)}` +
+            `L ${x + (size - dot)} ${y + dot}` +
+            `Z`
+        );
+      }
+    });
+  }
+
+  _basicGappedDots(args: BasicFigureDrawArgs): void {
+    const { size, x, y } = args;
+    const dot = size / 12;
+
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        this._element = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        this._element.setAttribute(
+          "d",
+          `M ${x + size / 2} ${y + dot * 3}` +
+            `A 1 1 0 0 0 ${x + size / 2} ${y + size - dot * 2}` +
+            `A 1 1 0 0 0 ${x + size / 2} ${y + dot * 3}` +
+            `Z`
+        );
+      }
+    });
   }
 
   //if rotation === 0 - right side is rounded
@@ -184,6 +211,10 @@ export default class QRDot {
 
   _drawGappedSquare({ x, y, size }: DrawArgs): void {
     this._basicGappedSquare({ x, y, size, rotation: 0 });
+  }
+
+  _drawGappedDots({ x, y, size }: DrawArgs): void {
+    this._basicGappedDots({ x, y, size, rotation: 0 });
   }
 
   _drawRounded({ x, y, size, getNeighbor }: DrawArgs): void {

@@ -7,5 +7,6 @@ export default {
   classyRounded: "classy-rounded",
   square: "square",
   extraRounded: "extra-rounded",
-  gappedSquare: "gapped-square"
+  gappedSquare: "gapped-square",
+  gappedDots: "gapped-dots"
 } as DotTypes;
