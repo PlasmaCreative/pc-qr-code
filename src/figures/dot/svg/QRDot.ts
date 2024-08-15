@@ -16,6 +16,9 @@ export default class QRDot {
     let drawFunction;
 
     switch (type) {
+      case dotTypes.stars:
+        drawFunction = this._drawStars;
+        break;
       case dotTypes.gappedDots:
         drawFunction = this._drawGappedDots;
         break;
@@ -122,6 +125,26 @@ export default class QRDot {
     });
   }
 
+  _basicStars(args: BasicFigureDrawArgs): void {
+    const { size, x, y } = args;
+
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        this._element = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        this._element.setAttribute(
+          "d",
+          `M ${x + size / 2} ${y}` +
+            `Q ${x + size / 2} ${y + size / 2} ${x} ${y + size / 2}` +
+            `Q ${x + size / 2} ${y + size / 2} ${x + size / 2} ${y + size}` +
+            `Q ${x + size / 2} ${y + size / 2} ${x + size} ${y + size / 2}` +
+            `Q ${x + size / 2} ${y + size / 2} ${x + size / 2} ${y}` +
+            `Z`
+        );
+      }
+    });
+  }
+
   //if rotation === 0 - right side is rounded
   _basicSideRounded(args: BasicFigureDrawArgs): void {
     const { size, x, y } = args;
@@ -215,6 +238,10 @@ export default class QRDot {
 
   _drawGappedDots({ x, y, size }: DrawArgs): void {
     this._basicGappedDots({ x, y, size, rotation: 0 });
+  }
+
+  _drawStars({ x, y, size }: DrawArgs): void {
+    this._basicStars({ x, y, size, rotation: 0 });
   }
 
   _drawRounded({ x, y, size, getNeighbor }: DrawArgs): void {

@@ -11,7 +11,8 @@ export type DotType =
   | "square"
   | "extra-rounded"
   | "gapped-square"
-  | "gapped-dots";
+  | "gapped-dots"
+  | "stars";
 export type CornerDotType = "circle" | "square" | "extra-rounded" | "rounded" | "classy" | "classy-rounded";
 export type CornerSquareType = "circle" | "square" | "extra-rounded" | "rounded" | "classy" | "classy-rounded";
 export type Extension = "svg" | "png" | "jpeg" | "webp";
