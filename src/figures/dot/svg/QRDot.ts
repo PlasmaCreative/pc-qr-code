@@ -16,8 +16,8 @@ export default class QRDot {
     let drawFunction;
 
     switch (type) {
-      case dotTypes.gapped:
-        drawFunction = this._drawGapped;
+      case dotTypes.gappedSquare:
+        drawFunction = this._drawGappedSquare;
         break;
       case dotTypes.dots:
         drawFunction = this._drawDot;
@@ -80,7 +80,7 @@ export default class QRDot {
     });
   }
 
-  _basicGapped(args: BasicFigureDrawArgs): void {
+  _basicGappedSquare(args: BasicFigureDrawArgs): void {
     const { size, x, y } = args;
     const dot = size / 6;
 
@@ -182,8 +182,8 @@ export default class QRDot {
     this._basicSquare({ x, y, size, rotation: 0 });
   }
 
-  _drawGapped({ x, y, size }: DrawArgs): void {
-    this._basicGapped({ x, y, size, rotation: 0 });
+  _drawGappedSquare({ x, y, size }: DrawArgs): void {
+    this._basicGappedSquare({ x, y, size, rotation: 0 });
   }
 
   _drawRounded({ x, y, size, getNeighbor }: DrawArgs): void {
