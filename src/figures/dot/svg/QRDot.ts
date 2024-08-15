@@ -16,6 +16,9 @@ export default class QRDot {
     let drawFunction;
 
     switch (type) {
+      case dotTypes.gapped:
+        drawFunction = this._drawGapped;
+        break;
       case dotTypes.dots:
         drawFunction = this._drawDot;
         break;
@@ -61,9 +64,6 @@ export default class QRDot {
           "d",
           `M ${cx - r}, ${cy} a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 -${r * 2},0`
         );
-        // this._element.setAttribute("cx", String(x + size / 2));
-        // this._element.setAttribute("cy", String(y + size / 2));
-        // this._element.setAttribute("r", String(size / 2));
       }
     });
   }
@@ -76,12 +76,23 @@ export default class QRDot {
       draw: () => {
         this._element = document.createElementNS("http://www.w3.org/2000/svg", "path");
         this._element.setAttribute("d", `M ${x} ${y} l 0 ${size} l ${size} 0 l 0 -${size} z`);
-        // this._element.setAttribute("x", String(x));
-        // this._element.setAttribute("y", String(y));
-        // this._element.setAttribute("width", String(size));
-        // this._element.setAttribute("height", String(size));
       }
     });
+  }
+
+  _basicGapped(args: BasicFigureDrawArgs): void {
+    const { size, x, y } = args;
+    const dot = size / 6;
+
+    this._element = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    this._element.setAttribute(
+      "d",
+      `M ${x + dot} ${y + dot}` +
+        `L ${x + dot} ${y + (size - dot)}` +
+        `H ${x + (size - dot)}` +
+        `L ${x + (size - dot)} ${y + dot}` +
+        `Z`
+    );
   }
 
   //if rotation === 0 - right side is rounded
@@ -169,6 +180,10 @@ export default class QRDot {
 
   _drawSquare({ x, y, size }: DrawArgs): void {
     this._basicSquare({ x, y, size, rotation: 0 });
+  }
+
+  _drawGapped({ x, y, size }: DrawArgs): void {
+    this._basicGapped({ x, y, size, rotation: 0 });
   }
 
   _drawRounded({ x, y, size, getNeighbor }: DrawArgs): void {
