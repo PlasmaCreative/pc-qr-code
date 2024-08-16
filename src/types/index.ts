@@ -13,7 +13,7 @@ export type DotType =
   | "gapped-square"
   | "gapped-dots"
   | "stars";
-export type CornerDotType = "circle" | "square" | "extra-rounded" | "rounded" | "classy" | "classy-rounded";
+export type CornerDotType = "circle" | "square" | "extra-rounded" | "rounded" | "classy" | "classy-rounded" | "star";
 export type CornerSquareType =
   | "circle"
   | "square"

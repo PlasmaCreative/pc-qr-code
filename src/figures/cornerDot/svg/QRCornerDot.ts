@@ -31,6 +31,9 @@ export default class QRCornerDot {
       case cornerDotTypes.extraRounded:
         drawFunction = this._drawExtraRounded;
         break;
+      case cornerDotTypes.star:
+        drawFunction = this._drawStar;
+        break;
       case cornerDotTypes.square:
       default:
         drawFunction = this._drawSquare;
@@ -133,6 +136,21 @@ export default class QRCornerDot {
     );
   }
 
+  _basicStar(args: BasicFigureDrawArgs): void {
+    const { size, x, y } = args;
+
+    this._element = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    this._element.setAttribute(
+      "d",
+      `M ${x} ${y}` +
+        `Q ${x + size / 2} ${y + size / 2} ${x} ${y + size}` +
+        `Q ${x + size / 2} ${y + size / 2} ${x + size} ${y + size}` +
+        `Q ${x + size / 2} ${y + size / 2} ${x + size} ${y}` +
+        `Q ${x + size / 2} ${y + size / 2} ${x} ${y}` +
+        `Z`
+    );
+  }
+
   _basicClassyRounded(args: BasicFigureDrawArgs): void {
     const { size, x, y } = args;
     const dotSize = size / 3;
@@ -172,5 +190,9 @@ export default class QRCornerDot {
 
   _drawClassyRounded({ x, y, size, rotation }: DrawArgs): void {
     this._basicClassyRounded({ x, y, size, rotation });
+  }
+
+  _drawStar({ x, y, size, rotation }: DrawArgs): void {
+    this._basicStar({ x, y, size, rotation });
   }
 }
