@@ -10,6 +10,9 @@ import sanitizeOptions from "../tools/sanitizeOptions";
 import { Extension, QRCode, Options, DownloadOptions } from "../types";
 import qrcode from "qrcode-generator";
 
+import { optimize } from "svgo/browser";
+import { SVG } from "@svgdotjs/svg.js";
+
 export default class PCQRCode {
   _options: RequiredOptions;
   _container?: HTMLElement;
@@ -140,8 +143,6 @@ export default class PCQRCode {
   }
 
   async toOptimizedSVGString() {
-    const { optimize } = await import("svgo/browser");
-    const { SVG } = await import("@svgdotjs/svg.js");
     const element = await this._getQRStylingElement("svg");
     const serializer = new XMLSerializer();
     const source = serializer.serializeToString(element.getElement());
