@@ -5,6 +5,7 @@ export interface UnknownObject {
 
 export type DotType =
   | "dots"
+  | "random-dots"
   | "rounded"
   | "classy"
   | "classy-rounded"

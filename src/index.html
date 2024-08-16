@@ -28,12 +28,12 @@
 
     <script type="text/javascript">
       
-      const dotOptions = ["rounded", "dots", "classy", "classy-rounded", "square", "extra-rounded", "gapped-square", "gapped-dots", "stars"];
+      const dotOptions = ["rounded", "dots", "classy", "classy-rounded", "square", "extra-rounded", "gapped-square", "gapped-dots", "stars", "random-dots"];
 
 
-      const colors = ["#e8977d", "#d3e87d", "#7de88e", "#7ddbe8", "#867de8", "#e87de4", "#ee5253", "#576574", "#ff9f43"];
-      const cornerDot = ['rounded', 'circle', 'classy', 'classy-rounded', 'square', 'extra-rounded', 'square', 'circle', "star"];
-      const cornerSquare = ['rounded', 'circle', 'classy', 'classy-rounded', 'square', 'extra-rounded', 'square-thin' , 'dots-light', 'rounded'];
+      const colors = ["#e8977d", "#d3e87d", "#7de88e", "#7ddbe8", "#867de8", "#e87de4", "#ee5253", "#576574", "#ff9f43", ""];
+      const cornerDot = ['rounded', 'circle', 'classy', 'classy-rounded', 'square', 'extra-rounded', 'square', 'circle', "star", "rounded"];
+      const cornerSquare = ['rounded', 'circle', 'classy', 'classy-rounded', 'square', 'extra-rounded', 'square-thin' , 'dots-light', 'rounded', "rounded"];
 
       const options = {
         width: 300,
@@ -53,18 +53,32 @@
         options["dotsOptions"] = {
           ...options["dotsOptions"],
           type: dotOptions[i],
-          color: colors[i]
+          color: colors[i],
+          gradient: colors[i] == '' ? {
+            type: "linear",
+            colorStops: [{ offset: 0, color: 'blue' }, { offset: 1, color: 'red' }]
+          } : null
         };
         options["cornersSquareOptions"] = {
           ...options["cornersSquareOptions"],
           type: cornerSquare[i],
-          color: colors[i]
+          color: colors[i],
+          gradient: colors[i] == '' ? {
+            type: "linear",
+            colorStops: [{ offset: 0, color: 'blue' }, { offset: 1, color: 'red' }]
+          } : null
         };
         options["cornersDotOptions"] = {
           ...options["cornersDotOptions"],
           type: cornerDot[i],
-          color: colors[i]
+          color: colors[i],
+          gradient: colors[i] == '' ? {
+            type: "linear",
+            colorStops: [{ offset: 0, color: 'blue' }, { offset: 1, color: 'red' }]
+          } : null
         };
+
+
 
         const qrCode = new PCQRCode(options);
         async function test(){

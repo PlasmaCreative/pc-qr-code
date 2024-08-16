@@ -154,6 +154,17 @@ export default class PCQRCode {
 
     const groupsList = parseQr.find("g");
 
+    const defs = parseQr.find("defs clipPath path");
+    if (defs.length > 0) {
+      const pathD: string = defs.reduce((pathString, path) => {
+        return pathString + path.attr("d");
+      }, "");
+      const pathElement = SVG().path(pathD);
+      const clipPath = parseQr.findOne("clipPath");
+      clipPath?.clear();
+      clipPath?.add(pathElement);
+    }
+
     groupsList.each((group) => {
       const pathD: string = group.children().reduce((pathString, path) => {
         return pathString + path.attr("d");

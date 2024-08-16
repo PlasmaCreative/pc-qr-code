@@ -28,6 +28,9 @@ export default class QRDot {
       case dotTypes.dots:
         drawFunction = this._drawDot;
         break;
+      case dotTypes.randomDots:
+        drawFunction = this._drawRandomDot;
+        break;
       case dotTypes.classy:
         drawFunction = this._drawClassy;
         break;
@@ -61,6 +64,29 @@ export default class QRDot {
     const cx = x + size / 2;
     const cy = y + size / 2;
     const r = size / 2;
+
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        this._element = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        this._element.setAttribute(
+          "d",
+          `M ${cx - r}, ${cy} a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 -${r * 2},0`
+        );
+      }
+    });
+  }
+
+  _basicRandomDot(args: BasicFigureDrawArgs): void {
+    const { size, x, y } = args;
+    const cx = x + size / 2;
+    const cy = y + size / 2;
+
+    function getRandomArbitrary(min: number, max: number) {
+      return Math.random() * (max - min) + min;
+    }
+
+    const r = size / getRandomArbitrary(2, 5);
 
     this._rotateFigure({
       ...args,
@@ -108,7 +134,9 @@ export default class QRDot {
 
   _basicGappedDots(args: BasicFigureDrawArgs): void {
     const { size, x, y } = args;
-    const dot = size / 12;
+    const cx = x + size / 2;
+    const cy = y + size / 2;
+    const r = size / 3;
 
     this._rotateFigure({
       ...args,
@@ -116,10 +144,7 @@ export default class QRDot {
         this._element = document.createElementNS("http://www.w3.org/2000/svg", "path");
         this._element.setAttribute(
           "d",
-          `M ${x + size / 2} ${y + dot * 3}` +
-            `A 1 1 0 0 0 ${x + size / 2} ${y + size - dot * 2}` +
-            `A 1 1 0 0 0 ${x + size / 2} ${y + dot * 3}` +
-            `Z`
+          `M ${cx - r}, ${cy} a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 -${r * 2},0`
         );
       }
     });
@@ -242,6 +267,10 @@ export default class QRDot {
 
   _drawStars({ x, y, size }: DrawArgs): void {
     this._basicStars({ x, y, size, rotation: 0 });
+  }
+
+  _drawRandomDot({ x, y, size }: DrawArgs): void {
+    this._basicRandomDot({ x, y, size, rotation: 0 });
   }
 
   _drawRounded({ x, y, size, getNeighbor }: DrawArgs): void {
