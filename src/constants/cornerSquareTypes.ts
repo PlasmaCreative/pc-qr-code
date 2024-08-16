@@ -6,5 +6,6 @@ export default {
   extraRounded: "extra-rounded",
   circle: "circle",
   classy: "classy",
-  classyRounded: "classy-rounded"
+  classyRounded: "classy-rounded",
+  dotsLight: "dots-light"
 } as CornerSquareTypes;

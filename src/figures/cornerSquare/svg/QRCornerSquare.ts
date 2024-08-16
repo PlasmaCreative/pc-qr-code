@@ -16,6 +16,9 @@ export default class QRCornerSquare {
     let drawFunction;
 
     switch (type) {
+      case cornerSquareTypes.dotsLight:
+        drawFunction = this._drawDotsLight;
+        break;
       case cornerSquareTypes.classy:
         drawFunction = this._drawClassy;
         break;
@@ -207,6 +210,42 @@ export default class QRCornerSquare {
     );
   }
 
+  _basicDotsLight(args: BasicFigureDrawArgs): void {
+    const { size, x, y } = args;
+    const dot = size / 24;
+
+    function drawMiniDot(mx: number, my: number, a1x: number, a1y: number, a2x: number, a2y: number) {
+      return `M ${mx} ${my}` + `A 1 1 0 0 0 ${a1x} ${a1y}` + `A 1 1 0 0 0 ${a2x} ${a2y}` + "Z";
+    }
+
+    this._element = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    this._element.setAttribute(
+      "d",
+      drawMiniDot(x + dot, y, x + dot, y + dot * 2, x + dot, y) +
+        drawMiniDot(x + size / 2, y, x + size / 2, y + dot * 2, x + size / 2, y) +
+        drawMiniDot(x + size - dot, y, x + size - dot, y + dot * 2, x + size - dot, y) +
+        drawMiniDot(
+          x + size - dot,
+          y + (size / 2 - dot),
+          x + size - dot,
+          y + (size / 2 + dot),
+          x + size - dot,
+          y + (size / 2 - dot)
+        ) +
+        drawMiniDot(
+          x + size - dot,
+          y + size - dot * 2,
+          x + size - dot,
+          y + size,
+          x + size - dot,
+          y + (size - dot * 2)
+        ) +
+        drawMiniDot(x + size / 2, y + size - dot * 2, x + size / 2, y + size, x + size / 2, y + (size - dot * 2)) +
+        drawMiniDot(x + dot, y + size - dot * 2, x + dot, y + size, x + dot, y + (size - dot * 2)) +
+        drawMiniDot(x + dot, y + size / 2 - dot, x + dot, y + size / 2 + dot, x + dot, y + (size / 2 - dot))
+    );
+  }
+
   _drawCircle({ x, y, size, rotation }: DrawArgs): void {
     this._basicCircle({ x, y, size, rotation });
   }
@@ -229,5 +268,9 @@ export default class QRCornerSquare {
 
   _drawClassyRounded({ x, y, size, rotation }: DrawArgs): void {
     this._basicClassyRounded({ x, y, size, rotation });
+  }
+
+  _drawDotsLight({ x, y, size, rotation }: DrawArgs): void {
+    this._basicDotsLight({ x, y, size, rotation });
   }
 }

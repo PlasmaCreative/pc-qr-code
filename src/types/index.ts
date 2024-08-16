@@ -14,7 +14,14 @@ export type DotType =
   | "gapped-dots"
   | "stars";
 export type CornerDotType = "circle" | "square" | "extra-rounded" | "rounded" | "classy" | "classy-rounded";
-export type CornerSquareType = "circle" | "square" | "extra-rounded" | "rounded" | "classy" | "classy-rounded";
+export type CornerSquareType =
+  | "circle"
+  | "square"
+  | "extra-rounded"
+  | "rounded"
+  | "classy"
+  | "classy-rounded"
+  | "dots-light";
 export type Extension = "svg" | "png" | "jpeg" | "webp";
 export type GradientType = "radial" | "linear";
 export type DrawType = "canvas" | "svg";
