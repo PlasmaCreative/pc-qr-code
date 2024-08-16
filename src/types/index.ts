@@ -17,6 +17,7 @@ export type CornerDotType = "circle" | "square" | "extra-rounded" | "rounded" | 
 export type CornerSquareType =
   | "circle"
   | "square"
+  | "square-thin"
   | "extra-rounded"
   | "rounded"
   | "classy"

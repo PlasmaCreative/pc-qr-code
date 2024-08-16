@@ -31,6 +31,9 @@ export default class QRCornerSquare {
       case cornerSquareTypes.extraRounded:
         drawFunction = this._drawExtraRounded;
         break;
+      case cornerSquareTypes.squareThin:
+        drawFunction = this._drawSquareThin;
+        break;
       case cornerSquareTypes.circle:
         drawFunction = this._drawCircle;
         break;
@@ -72,30 +75,25 @@ export default class QRCornerSquare {
     });
   }
 
-  _basicSquare(args: BasicFigureDrawArgs): void {
-    const { size, x, y } = args;
-    const dotSize = size / 7;
+  _basicSquare(arg: BasicFigureDrawArgs): void {
+    const { size, x, y, rotation } = arg;
+    const dotSize = size / (rotation || 7);
 
-    this._rotateFigure({
-      ...args,
-      draw: () => {
-        this._element = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        this._element.setAttribute("clip-rule", "evenodd");
-        this._element.setAttribute(
-          "d",
-          `M ${x} ${y}` +
-            `v ${size}` +
-            `h ${size}` +
-            `v ${-size}` +
-            `z` +
-            `M ${x + dotSize} ${y + dotSize}` +
-            `h ${size - 2 * dotSize}` +
-            `v ${size - 2 * dotSize}` +
-            `h ${-size + 2 * dotSize}` +
-            `z`
-        );
-      }
-    });
+    this._element = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    this._element.setAttribute("clip-rule", "evenodd");
+    this._element.setAttribute(
+      "d",
+      `M ${x} ${y}` +
+        `v ${size}` +
+        `h ${size}` +
+        `v ${-size}` +
+        `z` +
+        `M ${x + dotSize} ${y + dotSize}` +
+        `h ${size - 2 * dotSize}` +
+        `v ${size - 2 * dotSize}` +
+        `h ${-size + 2 * dotSize}` +
+        `z`
+    );
   }
 
   _basicExtraRounded(args: BasicFigureDrawArgs): void {
@@ -251,6 +249,12 @@ export default class QRCornerSquare {
   }
 
   _drawSquare({ x, y, size, rotation }: DrawArgs): void {
+    rotation = 7;
+    this._basicSquare({ x, y, size, rotation });
+  }
+
+  _drawSquareThin({ x, y, size, rotation }: DrawArgs): void {
+    rotation = 12;
     this._basicSquare({ x, y, size, rotation });
   }
 
